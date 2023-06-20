@@ -8,11 +8,14 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "file-saver": "^2.0.5",
+    "pivottable": "^2.23.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-pivottable": "^0.11.0",
+    "react-plotly.js": "^2.6.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
