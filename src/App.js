@@ -19,35 +19,32 @@ const PivotTableUISmartWrapper = () => {
           const data = response.data;
           setData(data);
         } else {
-          console.error('Error fetching data from API. Response status:', response.status);
-          alert('Error fetching data from API. Please try again later.');
+          console.error('Error al obtener datos desde la API. Estado de respuesta:', response.status);
+          alert('Error al obtener datos desde la API. Por favor, intenta nuevamente más tarde.');
         }
       })
       .catch(error => {
-        console.error('Error fetching data from API:', error);
-        alert('Error fetching data from API. Please try again later.');
+        console.error('Error al obtener datos desde la API:', error);
+        alert('Error al obtener datos desde la API. Por favor, intenta nuevamente más tarde.');
       });
   };
 
   const exportToExcel = () => {
-    if (!pivotState.data || pivotState.data.length === 0) {
-      console.warn('No hay datos para exportar.');
+    const table = document.querySelector('.pvtTable');
+    if (!table) {
+      console.warn('No se encontró la tabla.');
       return;
     }
 
-    const worksheet = XLSX.utils.json_to_sheet(pivotState.data);
+    const worksheet = XLSX.utils.table_to_sheet(table);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     const excelBuffer = XLSX.write(workbook, {
       bookType: 'xlsx',
       type: 'array',
     });
-    saveAsExcelFile(excelBuffer, 'pivot_table_data.xlsx');
-  };
-
-  const saveAsExcelFile = (buffer, fileName) => {
-    const data = new Blob([buffer], { type: 'application/octet-stream' });
-    saveAs(data, fileName);
+    const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(data, 'pivot_table_data.xlsx');
   };
 
   useEffect(() => {
@@ -65,7 +62,10 @@ const PivotTableUISmartWrapper = () => {
       </div>
       <PivotTableUI
         {...pivotState}
-        onChange={s => setPivotState(s)}
+        onChange={s => {
+          setPivotState(s);
+          console.log(s.data);
+        }}
         unusedOrientationCutoff={Infinity}
       />
     </div>
