@@ -64,7 +64,7 @@ const PivotTableUISmartWrapper = () => {
         {...pivotState}
         onChange={s => {
           setPivotState(s);
-          console.log(s.data);
+          //console.log(s.data);
         }}
         unusedOrientationCutoff={Infinity}
       />
